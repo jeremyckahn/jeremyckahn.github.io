@@ -1,0 +1,8 @@
+baseURL = 'https://jeremyckahn.github.io/'
+languageCode = 'en-us'
+title = "Jeremy's Dev Blog"
+theme = "hugo-bearcub"
+Copyright = "Jeremy Kahn"
+
+[params]
+  madeWith = "Made with [Bear Cub](https://github.com/clente/hugo-bearcub)"
