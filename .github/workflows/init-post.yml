@@ -1,0 +1,42 @@
+name: Initialize Post
+on:
+  workflow_dispatch:
+    inputs:
+      postName:
+        description: "Post name"
+        required: true
+
+jobs:
+  init-post:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+          persist-credentials: true
+
+      # https://stackoverflow.com/a/69634516
+      - name: Reconfigure Git to use HTTP authentication
+        run: >
+          git config --global url."https://github.com/".insteadOf ssh://git@github.com/
+
+      - name: Set up Git user
+        uses: fregante/setup-git-user@v1
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "0.120.0"
+
+      - name: Create Post
+        run: hugo new content posts/${{ github.event.inputs.postName }}.md
+
+      - name: Commit new post
+        run: |
+          git add content/posts/${{ github.event.inputs.postName }}.md
+          git commit -m "Create post ${{ github.event.inputs.postName }}"
+
+      # https://github.community/t/push-from-action-does-not-trigger-subsequent-action/16854/2
+      - uses: ad-m/github-push-action@master
