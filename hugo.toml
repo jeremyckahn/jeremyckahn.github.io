@@ -1,6 +1,6 @@
 baseURL = 'https://jeremyckahn.github.io/'
 languageCode = 'en-us'
-title = "Jeremy's Dev Blog"
+title = "Observe and Report"
 theme = "hugo-bearcub"
 Copyright = "[Jeremy Kahn](https://github.com/jeremyckahn/)"
 
